@@ -2,6 +2,7 @@
     <nav>
         <menu-item :text="'Kilometerstand'" @click.native="triggerPageSelect($event, 'MileagePage')" ></menu-item>
         <menu-item :text="'Historie'" @click.native="triggerPageSelect($event, 'HistoryPage')"></menu-item>
+        <menu-item :text="'Abrechnung'" @click.native="triggerPageSelect($event, 'BillingPage')"></menu-item>
     </nav>
 </template>
 

@@ -3,13 +3,15 @@
     <main-menu @select-page="showNewPage($event)"></main-menu>
     <Mileage-page v-if="currentPage == 'MileagePage'"/>
     <history-page v-if="currentPage == 'HistoryPage'"/>
+    <billing-page v-if="currentPage == 'BillingPage'"/>
   </div>
 </template>
 
 <script>
 import MainMenu from './components/MainMenu.vue'
-import MileagePage from './components/MileagePage'
-import HistoryPage from './components/HistoryPage'
+import MileagePage from './components/MileagePage.vue'
+import HistoryPage from './components/HistoryPage.vue'
+import BillingPage from './components/BillingPage.vue'
 
 
 export default {
@@ -17,7 +19,8 @@ export default {
   components: {
     MainMenu,
     MileagePage,
-    HistoryPage
+    HistoryPage,
+    BillingPage
   },
   data () {
     return {
@@ -39,6 +42,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
