@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <menu-item :text="'Kilometerstand'" @click.native="showMileagePage"></menu-item>
-    <menu-item :text="'Historie'" @click.native="showHistoryPage"></menu-item>
+    <main-menu @select-page="showNewPage($event)"></main-menu>
     <Mileage-page v-if="currentPage == 'MileagePage'"/>
     <history-page v-if="currentPage == 'HistoryPage'"/>
   </div>
@@ -9,7 +8,6 @@
 
 <script>
 import MainMenu from './components/MainMenu.vue'
-import MenuItem from './components/MenuItem.vue'
 import MileagePage from './components/MileagePage'
 import HistoryPage from './components/HistoryPage'
 
@@ -17,7 +15,7 @@ import HistoryPage from './components/HistoryPage'
 export default {
   name: 'app',
   components: {
-    MenuItem,
+    MainMenu,
     MileagePage,
     HistoryPage
   },
@@ -27,11 +25,8 @@ export default {
     };
   },
   methods: {
-    showMileagePage () {
-      this.currentPage = "MileagePage";
-    },
-    showHistoryPage () {
-      this.currentPage = "HistoryPage"
+    showNewPage (pageName) {
+      this.currentPage = pageName;
     }
   }
 }
