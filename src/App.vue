@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <main-menu @select-page="showNewPage($event)"></main-menu>
+    <main-menu @select-page="showNewPage($event)" :currentPage="currentPage"></main-menu>
     <Mileage-page v-if="currentPage == 'MileagePage'"/>
     <history-page v-if="currentPage == 'HistoryPage'"/>
     <billing-page v-if="currentPage == 'BillingPage'"/>

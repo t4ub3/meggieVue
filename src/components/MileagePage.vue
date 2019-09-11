@@ -1,15 +1,15 @@
 <template>
     <div class="box">
         Wer ist zuletzt gefahren?
-        <br>
+        <br><br>
         <input id="radio-stoffel" name="radio-driven-last" type="radio" value="stoffel" v-model="driver"/>
         <label for="radio-stoffel">Stoffel</label>
         <input id="radio-neumann" name="radio-driven-last" type="radio" value="neumann" v-model="driver"/>
         <label for="radio-neumann">Neumann</label>
-        <br>
+        <br><br>
         <label for="input-mileage">Kilometerstand</label>
         <input id="input-mileage" type="number" v-model="mileage"/>
-        <br>
+        <br><br>
         <button @click="submitRecord">Absenden</button>
     </div>
 </template>
@@ -34,6 +34,7 @@ export default {
 
 <style scoped>
     .box {
-        border: 2px solid red
+        padding: 10px;
+        background-color: #FFD6AA;
     }
 </style>
