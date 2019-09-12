@@ -35,6 +35,8 @@ export default {
 <style scoped>
     .box {
         padding: 10px;
-        background-color: #FFD6AA;
+        background-color: #cfcfcf;
+        border-top: solid 3px #0B2F59;
+        border-bottom: solid 3px #0B2F59;
     }
 </style>

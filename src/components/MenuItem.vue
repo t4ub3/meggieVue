@@ -27,14 +27,15 @@ export default {
     .menu-button{
         width: 100%;
         font-size: 26px;
-        border: 2px solid #500D00;
-        color: #500D00;
+        border: none;
+        background-color: #3c70ad;
+        color: #0B2F59;
     }
     .menu-button:hover{
-        background-color: #500D00;
-        color: white;
+        color: #409589;
     }
     .menu-button--active{
-        background-color: #FFD6AA;
+        background-color: #0B2F59;
+        color: white;
     }
 </style>
