@@ -29,6 +29,7 @@ export default {
 
 <style scoped>
     .nav{
+        flex-grow: 0;
         display: flex;
         justify-content: space-evenly;
         align-items: center;
