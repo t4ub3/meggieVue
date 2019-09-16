@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <main-menu @select-page="showNewPage($event)" :currentPage="currentPage"></main-menu>
     <Mileage-page v-if="currentPage == 'MileagePage'"/>
     <history-page v-if="currentPage == 'HistoryPage'"/>
     <billing-page v-if="currentPage == 'BillingPage'"/>
+    <main-menu @select-page="showNewPage($event)" :currentPage="currentPage"></main-menu>
   </div>
 </template>
 
@@ -52,7 +52,7 @@ body {
 .box {
   flex-grow: 1;
   padding: 10px;
-  background-color: #cfcfcf;
+  background-color: #e5e5e5;
   border-top: solid 3px #0B2F59;
   border-bottom: solid 3px #0B2F59;
 }

@@ -1,6 +1,6 @@
 <template>
     <button :class="classButton">
-        {{text}}
+        <font-awesome-icon :icon="iconName"></font-awesome-icon>
     </button>
 </template>
 
@@ -8,8 +8,8 @@
 export default {
     name: "MenuItem",
     props: {
-        text: String,
-        isActive: Boolean
+        isActive: Boolean,
+        iconName: String 
     },
     computed: {
         classButton(){
