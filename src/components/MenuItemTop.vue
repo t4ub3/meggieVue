@@ -1,15 +1,15 @@
 <template>
     <button :class="classButton">
-        <font-awesome-icon :icon="iconName"></font-awesome-icon>
+        {{siteName}}
     </button>
 </template>
 
 <script>
 export default {
-    name: "MenuItem",
+    name: "MenuItemTop",
     props: {
         isActive: Boolean,
-        iconName: String
+        siteName: String
     },
     computed: {
         classButton(){

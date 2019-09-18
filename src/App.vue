@@ -1,14 +1,24 @@
 <template>
   <div id="app">
+    <mq-layout mq=lg+>
+      <main-menu-top @select-page="showNewPage($event)" :currentPage="currentPage"></main-menu-top>
+    </mq-layout>
+    <mq-layout mq=sm>
+      <menu-header :currentPage='currentPage'></menu-header>
+    </mq-layout>
     <Mileage-page v-if="currentPage == 'MileagePage'"/>
     <history-page v-if="currentPage == 'HistoryPage'"/>
     <billing-page v-if="currentPage == 'BillingPage'"/>
-    <main-menu @select-page="showNewPage($event)" :currentPage="currentPage"></main-menu>
+    <mq-layout mq=sm>
+      <main-menu @select-page="showNewPage($event)" :currentPage="currentPage"></main-menu>
+    </mq-layout>
   </div>
 </template>
 
 <script>
+import MenuHeader from './components/MenuHeader.vue'
 import MainMenu from './components/MainMenu.vue'
+import MainMenuTop from './components/MainMenuTop'
 import MileagePage from './components/MileagePage.vue'
 import HistoryPage from './components/HistoryPage.vue'
 import BillingPage from './components/BillingPage.vue'
@@ -17,7 +27,9 @@ import BillingPage from './components/BillingPage.vue'
 export default {
   name: 'app',
   components: {
+    MenuHeader,
     MainMenu,
+    MainMenuTop,
     MileagePage,
     HistoryPage,
     BillingPage

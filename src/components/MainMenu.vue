@@ -8,23 +8,15 @@
 
 <script>
 import MenuItem from "./MenuItem.vue"
+import {menuMixin} from "../mixins/MenuMixin.js"
 
 export default {
+    mixins: [menuMixin],
     name: "MainMenu",
 
     components: {
         MenuItem
     },
-
-    methods: {
-        triggerPageSelect: function(event, pageName) {
-            this.$emit("select-page", pageName);
-        }
-    },
-
-    props: {
-        currentPage: String
-    }
 }
 </script>
 
