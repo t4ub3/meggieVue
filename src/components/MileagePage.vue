@@ -7,7 +7,8 @@
         <input id="radio-neumann" name="radio-driven-last" type="radio" value="neumann" v-model="driver"/>
         <label for="radio-neumann">Neumann</label>
         <br><br>
-        <label for="input-mileage">Kilometerstand</label>
+        <label for="input-mileage">aktueller Kilometerstand:</label>
+        <br>
         <input id="input-mileage" type="number" v-model="mileage"/>
         <br><br>
         <button @click="submitRecord">Absenden</button>

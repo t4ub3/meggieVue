@@ -1,10 +1,15 @@
 <template>
     <div class="box">
-        {{lastPaidMileage}}
+        Zuletzt bezahlt bei {{lastPaidMileage}} km.
         <br>
-        {{calcCosts}} €
         <br>
-        <button @click="setMileageAsPaid">i have payed</button>
+        aktuelle Kosten: {{calcCosts}} €
+        <br>
+        <br>
+        Ich habe für <input id="input-refuel" type="number" v-model="refuel"/> € getankt.
+        <br>
+        <br>
+        <button @click="setMileageAsPaid">Ich habe bezahlt</button>
     </div>
     
 </template>
@@ -19,11 +24,13 @@ export default {
         return {
             costs: 0,
             lastPaidMileage: getLastPaidMileage(),
-            driveHistory: readDriveHistory()
+            driveHistory: readDriveHistory(),
+            refuel: 0
         }
     },
 
     methods: {
+        
         setMileageAsPaid() {
             let lastPaidMileage = this.driveHistory[this.driveHistory.length - 1].mileage;
             setLastPaidMileage(lastPaidMileage);
@@ -41,8 +48,11 @@ export default {
             let billedMileage = filteredHistory.reduce(function(currentSum, currentDriveSession) {
                 return currentSum + currentDriveSession.distance;
             }, 0);
+            let costs = Math.round(billedMileage * 15) / 100; //zum runden auf 2 Dezimalstellen
+            let costsWithFuel = costs - this.refuel;
+            this.refuel = 0;
 
-            return Math.round(billedMileage * 15) / 100; //zum runden auf 2 Dezimalstellen
+            return costsWithFuel; 
         }
     }
 }
