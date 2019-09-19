@@ -1,5 +1,6 @@
 const LS_DRIVEHISTORY = "driveHistory";
 const LS_LAST_PAID_MILEAGE = "lastPaidMileage";
+const LS_REFUEL_VALUE = "refuelValue";
 
 export function addMileageRecord(driver, mileage) {
     console.log(driver);
@@ -47,4 +48,13 @@ function calcDistance(newMileage, driveHistory) {
         lastMileage = driveHistory[driveHistory.length - 1].mileage;
     }
     return newMileage - lastMileage;
+}
+
+function setRefuelValue(refuelValue) {
+    localStorage.setItem(LS_REFUEL_VALUE, refuelValue.toString());
+}
+
+function getRefuelValue() {
+    let refuelValue = localStorage.getItem(LS_REFUEL_VALUE);
+    return parseInt(refuelValue);
 }

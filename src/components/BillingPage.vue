@@ -7,6 +7,10 @@
         <br>
         <br>
         Ich habe für <input id="input-refuel" type="number" v-model="refuel"/> € getankt.
+        <button @click="calcCostsWithRefuel">Verrechnen</button>
+        <br>
+        <br>
+        Kosten mit Tanken: {{costs}} €
         <br>
         <br>
         <button @click="setMileageAsPaid">Ich habe bezahlt</button>
@@ -15,7 +19,7 @@
 </template>
 
 <script>
-import {getLastPaidMileage, setLastPaidMileage, readDriveHistory} from '../services/dbAccess.js';
+import {getLastPaidMileage, setLastPaidMileage, readDriveHistory, setRefuelValue, getRefuelValue} from '../services/dbAccess.js';
 
 export default {
     name: "BillingPage",
@@ -29,12 +33,17 @@ export default {
         }
     },
 
-    methods: {
-        
+    methods: {        
         setMileageAsPaid() {
             let lastPaidMileage = this.driveHistory[this.driveHistory.length - 1].mileage;
             setLastPaidMileage(lastPaidMileage);
             this.lastPaidMileage = lastPaidMileage; //Wert aktualisieren, ohne neu aus LS zu laden
+        },
+
+        calcCostsWithRefuel() {
+            setRefuelValue(this.refuel);
+            let refuelValue = getRefuelValue();
+            this.costs = calcCosts() - refuelValue;
         }
     },
 
@@ -48,11 +57,7 @@ export default {
             let billedMileage = filteredHistory.reduce(function(currentSum, currentDriveSession) {
                 return currentSum + currentDriveSession.distance;
             }, 0);
-            let costs = Math.round(billedMileage * 15) / 100; //zum runden auf 2 Dezimalstellen
-            let costsWithFuel = costs - this.refuel;
-            this.refuel = 0;
-
-            return costsWithFuel; 
+            return Math.round(billedMileage * 15) / 100; //zum runden auf 2 Dezimalstellen
         }
     }
 }
