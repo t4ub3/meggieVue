@@ -1,8 +1,11 @@
 <template>
     <nav class="nav">
-        <menu-item-top siteName="Kilometer" @click.native="triggerPageSelect($event, 'MileagePage')" :isActive="currentPage==='MileagePage'"></menu-item-top>
-        <menu-item-top siteName="Historie" @click.native="triggerPageSelect($event, 'HistoryPage')" :isActive="currentPage==='HistoryPage'"></menu-item-top>
-        <menu-item-top siteName="Abrechnung" @click.native="triggerPageSelect($event, 'BillingPage')" :isActive="currentPage==='BillingPage'"></menu-item-top>
+        <menu-item-top v-for="(pageData,page) in pageMap" 
+                       :key="page" 
+                       :siteName="pageData.name" 
+                       @click.native="triggerPageSelect($event, page)" 
+                       :isActive="currentPage===page">
+        </menu-item-top>
     </nav>
 </template>
 
@@ -14,9 +17,13 @@ export default {
     mixins: [menuMixin],
     name: "MainMenu",
 
+    props: {
+        pageMap: Object
+    },
+
     components: {
         MenuItemTop
-    },
+    }
 }
 </script>
 

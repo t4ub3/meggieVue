@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        {{getName}}
+        {{pageMap[currentPage].name}}
     </div>
 </template>
 
@@ -8,19 +8,8 @@
 export default {
     name: "MenuHeader",
     props: {
-        currentPage: String
-    },
-    computed: {
-        getName(){
-            switch (this.currentPage) {
-                case "MileagePage":
-                    return "Kilometer";
-                case "HistoryPage":
-                    return "Historie";
-                default:
-                    return "Abrechnung"
-            }
-        }
+        currentPage: String,
+        pageMap: Object
     }
 }
 </script>

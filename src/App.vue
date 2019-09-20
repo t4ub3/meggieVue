@@ -1,16 +1,16 @@
 <template>
   <div id="app">
     <mq-layout mq=lg+>
-      <main-menu-top @select-page="showNewPage($event)" :currentPage="currentPage"></main-menu-top>
+      <main-menu-top @select-page="showNewPage($event)" :currentPage="currentPage" :pageMap="pageMap"></main-menu-top>
     </mq-layout>
     <mq-layout mq=sm>
-      <menu-header :currentPage='currentPage'></menu-header>
+      <menu-header :currentPage='currentPage' :pageMap="pageMap"></menu-header>
     </mq-layout>
     <Mileage-page v-if="currentPage == 'MileagePage'"/>
     <history-page v-if="currentPage == 'HistoryPage'"/>
     <billing-page v-if="currentPage == 'BillingPage'"/>
     <mq-layout mq=sm>
-      <main-menu @select-page="showNewPage($event)" :currentPage="currentPage"></main-menu>
+      <main-menu @select-page="showNewPage($event)" :currentPage="currentPage" :pageMap="pageMap"></main-menu>
     </mq-layout>
   </div>
 </template>
@@ -22,10 +22,12 @@ import MainMenuTop from './components/MainMenuTop'
 import MileagePage from './components/MileagePage.vue'
 import HistoryPage from './components/HistoryPage.vue'
 import BillingPage from './components/BillingPage.vue'
+import {createPageMap} from './utils/maps.js'
 
 
 export default {
   name: 'app',
+
   components: {
     MenuHeader,
     MainMenu,
@@ -34,16 +36,19 @@ export default {
     HistoryPage,
     BillingPage
   },
+
   data () {
     return {
-      currentPage: "MileagePage"
+      currentPage: "MileagePage",
+      pageMap: createPageMap()
     };
   },
+  
   methods: {
     showNewPage (pageName) {
       this.currentPage = pageName;
     }
-  }
+  },
 }
 </script>
 
