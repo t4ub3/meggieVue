@@ -3,8 +3,6 @@ const LS_LAST_PAID_MILEAGE = "lastPaidMileage";
 const LS_REFUEL_DATA = "refuelData";
 
 export function addMileageRecord(driver, mileage) {
-    console.log(driver);
-    console.log(mileage);
 
     let driveHistory = readDriveHistory();
 
@@ -36,6 +34,15 @@ export function getLastPaidMileage() {
     let lastPaidMileage = localStorage.getItem(LS_LAST_PAID_MILEAGE);
     if (lastPaidMileage !== null) {
         return parseInt(lastPaidMileage);
+    } else {
+        return 0;
+    }
+}
+
+export function getLastMileage() {
+    let driveHistory = readDriveHistory();
+    if (driveHistory.length > 0) {
+        return driveHistory[driveHistory.length - 1].mileage;
     } else {
         return 0;
     }

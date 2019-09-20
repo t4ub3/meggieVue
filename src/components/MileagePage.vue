@@ -16,13 +16,13 @@
 </template>
 
 <script>
-import {addMileageRecord} from '../services/dbAccess.js'
+import {addMileageRecord, getLastMileage} from '../services/dbAccess.js'
 export default {
     name: "MileagePage",
     data () {
         return {
             driver: "stoffel",
-            mileage: 0
+            mileage: getLastMileage()
         }
     },
     methods: {
