@@ -1,6 +1,6 @@
 const LS_DRIVEHISTORY = "driveHistory";
 const LS_LAST_PAID_MILEAGE = "lastPaidMileage";
-const LS_REFUEL_VALUE = "refuelValue";
+const LS_REFUEL_DATA = "refuelData";
 
 export function addMileageRecord(driver, mileage) {
     console.log(driver);
@@ -41,20 +41,21 @@ export function getLastPaidMileage() {
     }
 }
 
-function calcDistance(newMileage, driveHistory) {
-    let lastMileage = 0;
+export function addRefuel(newRefuel) {
+    let refuelData = getRefuelData();
+    refuelData.push(parseInt(newRefuel));
+    localStorage.setItem(LS_REFUEL_DATA, JSON.stringify(refuelData));
+}
 
-    if (driveHistory.length !== 0) {
-        lastMileage = driveHistory[driveHistory.length - 1].mileage;
+export function getRefuelData() {
+    let refuelData = localStorage.getItem(LS_REFUEL_DATA);
+    if (refuelData !== null) {
+        return JSON.parse(refuelData);
+    } else {
+        return [];
     }
-    return newMileage - lastMileage;
 }
 
-function setRefuelValue(refuelValue) {
-    localStorage.setItem(LS_REFUEL_VALUE, refuelValue.toString());
-}
-
-function getRefuelValue() {
-    let refuelValue = localStorage.getItem(LS_REFUEL_VALUE);
-    return parseInt(refuelValue);
+export function clearRefuelData() {
+    localStorage.setItem(LS_REFUEL_DATA, JSON.stringify([]));
 }
