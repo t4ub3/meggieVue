@@ -4,13 +4,16 @@
         <br>
         <br>
         Ich habe für <input id="input-refuel" type="number" v-model="refuel"/> € getankt.
-        <button @click="refuelHandler">Verrechnen</button>
+        <br>
+        <br>
+        <button class="button" @click="refuelHandler">Verrechnen</button>
+        <br>
         <br>
         <br>
         aktuelle Kosten: {{costs}} €
         <br>
         <br>
-        <button @click="payedHandler">Ich habe bezahlt</button>
+        <button class="button" @click="payedHandler">Ich habe bezahlt</button>
     </div>
     
 </template>

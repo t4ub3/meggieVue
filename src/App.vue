@@ -57,7 +57,10 @@ body {
   margin: 0px;
 }
 #app {
-  height: 100vh;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -68,9 +71,22 @@ body {
 }
 .box {
   flex-grow: 1;
+  font-size: 1.2rem;
   padding: 10px;
   background-color: #e5e5e5;
   border-top: solid 3px #0B2F59;
   border-bottom: solid 3px #0B2F59;
+}
+.button {
+  padding: 5px;
+  appearance: none;
+  background-color: #0B2F59;
+  color: white;
+  border-radius: 1px;
+  border: 2px solid #3c70ad;
+  font-size: 1rem;
+}
+.button:hover {
+  background-color: #409589;
 }
 </style>

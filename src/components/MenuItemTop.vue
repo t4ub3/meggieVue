@@ -31,6 +31,9 @@ export default {
         background-color: #3c70ad;
         color: #0B2F59;
     }
+    .menu-button:not(:last-child) {
+        border-right: 1px solid #0B2F59;
+    }
     .menu-button:hover{
         color: #409589;
     }

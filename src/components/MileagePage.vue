@@ -2,16 +2,16 @@
     <div class="box">
         Wer ist zuletzt gefahren?
         <br><br>
-        <input id="radio-stoffel" name="radio-driven-last" type="radio" value="stoffel" v-model="driver"/>
+        <input id="radio-stoffel" name="radio-driven-last" type="radio" value="Stoffel" v-model="driver"/>
         <label for="radio-stoffel">Stoffel</label>
-        <input id="radio-neumann" name="radio-driven-last" type="radio" value="neumann" v-model="driver"/>
+        <input id="radio-neumann" name="radio-driven-last" type="radio" value="Neumann" v-model="driver"/>
         <label for="radio-neumann">Neumann</label>
         <br><br>
         <label for="input-mileage">aktueller Kilometerstand:</label>
         <br>
         <input id="input-mileage" type="number" v-model="mileage"/>
         <br><br>
-        <button @click="submitRecord">Absenden</button>
+        <button class="button" @click="submitRecord">Absenden</button>
     </div>
 </template>
 
@@ -21,7 +21,7 @@ export default {
     name: "MileagePage",
     data () {
         return {
-            driver: "stoffel",
+            driver: "Stoffel",
             mileage: getLastMileage()
         }
     },

@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style scoped>
-    .header{
+    .header {
         background-color: #0B2F59;
         color: white;
         font-size: 26px;

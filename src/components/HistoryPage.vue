@@ -1,8 +1,12 @@
 <template>
     <div class="box">
-        <ul>
-            <li v-for="(drivingRecord,index) in drivingHistory" :key="index">{{drivingRecord.driver}}: {{drivingRecord.mileage}}</li>
-        </ul>
+        <table class="table">
+            <tr class="row" v-for="(drivingRecord,index) in drivingHistory" :key="index">
+                <td class="column leftColumn">{{drivingRecord.mileage}} km</td>
+                <td class="column">-</td>
+                <td class="column rightColumn">{{drivingRecord.driver}}</td>
+            </tr>
+        </table>
     </div>
 </template>
 
@@ -25,5 +29,20 @@ export default {
 </script>
 
 <style scoped>
-
+    .table {
+        margin: 0 auto;
+        border-collapse: collapse;
+    }
+    .row:not(:last-child) .column {
+        border-bottom: 1px solid darkgray;
+    }
+    .column {
+        padding: 5px;
+    }
+    .leftColumn {
+        text-align: right;
+    }
+    .rightColumn {
+        text-align: left;
+    }
 </style>

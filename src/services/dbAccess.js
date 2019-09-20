@@ -66,3 +66,12 @@ export function getRefuelData() {
 export function clearRefuelData() {
     localStorage.setItem(LS_REFUEL_DATA, JSON.stringify([]));
 }
+
+function calcDistance(newMileage, driveHistory) {
+    let lastMileage = 0;
+
+    if (driveHistory.length !== 0) {
+        lastMileage = driveHistory[driveHistory.length - 1].mileage;
+    }
+    return newMileage - lastMileage;
+}

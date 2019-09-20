@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style scoped>
-    .nav{
+    .nav {
         flex-grow: 0;
         display: flex;
         justify-content: space-evenly;
