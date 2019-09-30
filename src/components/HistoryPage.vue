@@ -16,14 +16,14 @@ import {readDriveHistory} from '../services/dbAccess';
 export default {
     name: "HistoryPage",
 
-    data () {
+    data() {
         return {
-            drivingHistory: readDriveHistory()
+            drivingHistory: []
         }
     },
 
-    methods: {
-
+    async created() {
+        this.drivingHistory = await readDriveHistory();
     }
 }
 </script>

@@ -1,10 +1,12 @@
-const LS_DRIVEHISTORY = "driveHistory";
-const LS_LAST_PAID_MILEAGE = "lastPaidMileage";
-const LS_REFUEL_DATA = "refuelData";
+import axios from 'axios';
+const DB_DRIVEHISTORY = "driveHistory";
+const DB_LAST_PAID_MILEAGE = "lastPaidMileage";
+const DB_REFUEL_DATA = "refuelData";
+const ROOT_URL = "https://meggie.lkg-leipzig.de/wp-json/meggie/v1/";
 
-export function addMileageRecord(driver, mileage) {
+export async function addMileageRecord(driver, mileage) {
 
-    let driveHistory = readDriveHistory();
+    let driveHistory = await readDriveHistory();
 
     let driveSession = {
         driver: driver,
@@ -14,24 +16,28 @@ export function addMileageRecord(driver, mileage) {
 
     driveHistory.push(driveSession);
 
-    localStorage.setItem(LS_DRIVEHISTORY, JSON.stringify(driveHistory));
-}
+    await axios.post(ROOT_URL + 'update-' + DB_DRIVEHISTORY, {
+        "driveHistory": JSON.stringify(driveHistory)
+      })
+    }
 
-export function readDriveHistory() {
-    let localStorageHistory = localStorage.getItem(LS_DRIVEHISTORY);
-    if (localStorageHistory !== null) {
-        return JSON.parse(localStorageHistory);
+export async function readDriveHistory() {
+    let dbHistory = (await axios.get(ROOT_URL + DB_DRIVEHISTORY)).data;
+    if (dbHistory !== null) {
+        return JSON.parse(dbHistory);
     } else {
         return [];
     }
 }
 
-export function setLastPaidMileage(mileage) {
-    localStorage.setItem(LS_LAST_PAID_MILEAGE, mileage.toString());
+export async function setLastPaidMileage(mileage) {
+    await axios.post(ROOT_URL + 'update-' + DB_LAST_PAID_MILEAGE, {
+        "lastPaidMileage": mileage.toString()
+    })
 }
 
-export function getLastPaidMileage() {
-    let lastPaidMileage = localStorage.getItem(LS_LAST_PAID_MILEAGE);
+export async function getLastPaidMileage() {
+    let lastPaidMileage = (await axios.get(ROOT_URL + DB_LAST_PAID_MILEAGE)).data;
     if (lastPaidMileage !== null) {
         return parseInt(lastPaidMileage);
     } else {
@@ -39,8 +45,8 @@ export function getLastPaidMileage() {
     }
 }
 
-export function getLastMileage() {
-    let driveHistory = readDriveHistory();
+export async function getLastMileage() {
+    let driveHistory = await readDriveHistory();
     if (driveHistory.length > 0) {
         return driveHistory[driveHistory.length - 1].mileage;
     } else {
@@ -48,14 +54,16 @@ export function getLastMileage() {
     }
 }
 
-export function addRefuel(newRefuel) {
-    let refuelData = getRefuelData();
+export async function addRefuel(newRefuel) {
+    let refuelData = await getRefuelData();
     refuelData.push(parseInt(newRefuel));
-    localStorage.setItem(LS_REFUEL_DATA, JSON.stringify(refuelData));
+    await axios.post(ROOT_URL + 'update-' + DB_REFUEL_DATA, {
+        "refuelData": JSON.stringify(refuelData)
+      })
 }
 
-export function getRefuelData() {
-    let refuelData = localStorage.getItem(LS_REFUEL_DATA);
+export async function getRefuelData() {
+    let refuelData = (await axios.get(ROOT_URL + DB_REFUEL_DATA)).data;
     if (refuelData !== null) {
         return JSON.parse(refuelData);
     } else {
@@ -63,8 +71,10 @@ export function getRefuelData() {
     }
 }
 
-export function clearRefuelData() {
-    localStorage.setItem(LS_REFUEL_DATA, JSON.stringify([]));
+export async function clearRefuelData() {
+    await axios.post(ROOT_URL + 'update-' + DB_REFUEL_DATA, {
+        "refuelData": JSON.stringify([])
+      })
 }
 
 function calcDistance(newMileage, driveHistory) {

@@ -19,15 +19,21 @@
 import {addMileageRecord, getLastMileage} from '../services/dbAccess.js'
 export default {
     name: "MileagePage",
-    data () {
+
+    data() {
         return {
             driver: "Stoffel",
-            mileage: getLastMileage()
+            mileage: 0
         }
     },
+
+    async created() {
+        this.mileage = await getLastMileage();
+    },
+    
     methods: {
-        submitRecord() {
-            addMileageRecord(this.driver, this.mileage);
+        async submitRecord() {
+            await addMileageRecord(this.driver, this.mileage);
         }
     }
 }

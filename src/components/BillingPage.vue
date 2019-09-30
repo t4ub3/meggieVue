@@ -27,48 +27,49 @@ export default {
     data() {
         return {
             costs: 0,
-            lastPaidMileage: getLastPaidMileage(),
-            driveHistory: readDriveHistory(),
+            lastPaidMileage: 0,
+            driveHistory: [],
             refuel: 0
         }
     },
 
     methods: {        
-        setMileageAsPaid() {
+        async setMileageAsPaid() {
             let lastPaidMileage = this.driveHistory[this.driveHistory.length - 1].mileage;
-            setLastPaidMileage(lastPaidMileage);
+            await setLastPaidMileage(lastPaidMileage);
             this.lastPaidMileage = lastPaidMileage; //Wert aktualisieren, ohne neu aus LS zu laden
         },
 
-        calcCosts() {
+        async calcCosts() {
             let lastPaidMileage = this.lastPaidMileage;
             let filteredHistory = this.driveHistory.filter(function(currentDriveSession){
-                return (currentDriveSession.driver === "stoffel" && currentDriveSession.mileage > lastPaidMileage);
+                return (currentDriveSession.driver === "Stoffel" && currentDriveSession.mileage > lastPaidMileage);
             });
             let billedMileage = filteredHistory.reduce(function(currentSum, currentDriveSession) {
                 return currentSum + currentDriveSession.distance;
             }, 0);
-            let summedRefuelValue = getRefuelData().reduce(function(currentRefuel, currentData) {
+            let summedRefuelValue = (await getRefuelData()).reduce(function(currentRefuel, currentData) {
                 return currentRefuel + currentData;
             }, 0);
-            return Math.round(100 * (billedMileage * 0.15 - summedRefuelValue)) / 100;
+            return parseFloat(Math.round(100 * (billedMileage * 0.15 - summedRefuelValue)) / 100).toFixed(2);
         },
 
-        refuelHandler() {
-            addRefuel(this.refuel);
-            this.costs = this.calcCosts();
+        async refuelHandler() {
+            await addRefuel(this.refuel);
+            this.costs = await this.calcCosts();
         },
 
-        payedHandler() {
-            clearRefuelData();
-            this.setMileageAsPaid();
-            this.costs = this.calcCosts();
-            clearRefuelData();
+        async payedHandler() {
+            await clearRefuelData();
+            await this.setMileageAsPaid();
+            this.costs = await this.calcCosts();
         }
     },
 
-    created() {
-        this.costs = this.calcCosts();
+    async created() {
+        this.lastPaidMileage = await getLastPaidMileage();
+        this.driveHistory = await readDriveHistory();
+        this.costs = await this.calcCosts();
     }
 }
 </script>
