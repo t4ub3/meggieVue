@@ -4,7 +4,7 @@ const DB_LAST_PAID_MILEAGE = "lastPaidMileage";
 const DB_REFUEL_DATA = "refuelData";
 const ROOT_URL = "https://meggie.lkg-leipzig.de/wp-json/meggie/v1/";
 
-axios.defaults.headers.common['X-WP-Nonce'] = window.meggie ? window.meggie.nonce : null
+// axios.defaults.headers.common['X-WP-Nonce'] = window.meggie ? window.meggie.nonce : null
 
 export async function addMileageRecord(driver, mileage) {
 
