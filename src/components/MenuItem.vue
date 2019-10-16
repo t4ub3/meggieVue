@@ -1,5 +1,5 @@
 <template>
-    <button :class="classButton">
+    <button class="menu-button">
         <font-awesome-icon :icon="iconName"></font-awesome-icon>
     </button>
 </template>
@@ -8,37 +8,22 @@
 export default {
     name: "MenuItem",
     props: {
-        isActive: Boolean,
-        iconName: String
+        iconName: String,
+        goalPage: String
     },
-    computed: {
-        classButton(){
-            if (this.isActive) {
-                return "menu-button menu-button--active";
-            } else {
-                return "menu-button";
-            }
-        }
-    }
 }
 </script>
 
 <style scoped>
     .menu-button {
-        width: 100%;
-        font-size: 26px;
+        width: 30px;
+        height: 30px;
+        font-size: 2rem;
         border: none;
         background-color: #3c70ad;
         color: #0B2F59;
     }
-    .menu-button:not(:last-child) {
-        border-right: 1px solid #0B2F59;
-    }
     .menu-button:hover {
         color: #409589;
-    }
-    .menu-button--active {
-        background-color: #0B2F59;
-        color: white;
     }
 </style>

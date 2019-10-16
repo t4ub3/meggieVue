@@ -3,10 +3,10 @@ import App from './App.vue'
 import VueMq from 'vue-mq'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTachometerAlt, faTable, faEuroSign } from '@fortawesome/free-solid-svg-icons'
+import { faTachometerAlt, faTable, faEuroSign, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
  
-library.add(faTachometerAlt, faTable, faEuroSign);
+library.add(faTachometerAlt, faTable, faEuroSign, faPlus);
  
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

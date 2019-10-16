@@ -6,6 +6,9 @@
                    @click.native="triggerPageSelect($event, page)" 
                    :isActive="currentPage===page">
         </menu-item>
+        <div class="test">
+            User
+        </div>
     </nav>
 </template>
 
@@ -33,5 +36,10 @@ export default {
         display: flex;
         justify-content: space-evenly;
         align-items: center;
+    }
+    .test {
+        color: black;
+        background-color: aqua;
+        flex-shrink: 1;
     }
 </style>
