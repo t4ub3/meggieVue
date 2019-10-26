@@ -1,31 +1,23 @@
 <template>
   <div id="app">
-    <history-page v-if="currentPage == 'HistoryPage'"/>
+    <history-page :drivingHistory="drivingHistory"/>
     <billing-page v-if="currentPage == 'BillingPage'"/>
-    <Mileage-page v-if="currentPage == 'MileagePage'"/>
-    <FixedOverlay></FixedOverlay>
-
+    <mileage-page v-if="currentPage == 'MileagePage'" @click.native="currentPage = 'HistoryPage'" @close="backToHistory"/>
+    <FixedOverlay @select-page="showNewPage($event)" :currentPage="currentPage"></FixedOverlay>
   </div>
 </template>
 
 <script>
-import MenuHeader from './components/MenuHeader.vue'
-import MainMenu from './components/MainMenu.vue'
-import MainMenuTop from './components/MainMenuTop'
 import MileagePage from './components/MileagePage.vue'
 import HistoryPage from './components/HistoryPage.vue'
 import BillingPage from './components/BillingPage.vue'
 import FixedOverlay from './components/FixedOverlay.vue'
 import {createPageMap} from './utils/maps.js'
-
+import {readDriveHistory} from './services/dbAccess';
 
 export default {
   name: 'app',
-
   components: {
-    MenuHeader,
-    MainMenu,
-    MainMenuTop,
     MileagePage,
     HistoryPage,
     BillingPage,
@@ -34,16 +26,25 @@ export default {
 
   data () {
     return {
-      currentPage: "HistoryPage",
-      pageMap: createPageMap()
+      currentPage: "",
+      pageMap: createPageMap(),
+      drivingHistory: [],
     };
   },
   
   methods: {
     showNewPage (pageName) {
       this.currentPage = pageName;
+    },
+    async backToHistory () {
+      this.currentPage = 'HistoryPage';
+      this.drivingHistory = await readDriveHistory();
     }
   },
+
+  async created() {
+      this.drivingHistory = await readDriveHistory();
+  }
 }
 </script>
 
@@ -55,7 +56,7 @@ body {
   position: fixed;
   height: 100%;
   width: 100%;
-  overflow: hidden;
+  overflow: scroll;
   display: flex;
   flex-direction: column;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -68,8 +69,8 @@ body {
 .box {
   flex-grow: 1;
   font-size: 1.2rem;
-  padding: 10px;
-  background-color: #e5e5e5;
+  padding: 16px;
+  background-color: #f3f3f3;
 }
 .button {
   padding: 8px 16px;
@@ -83,4 +84,19 @@ body {
 .button:hover {
   background-color: #409589;
 }
+.overlay_background {
+  box-sizing: border-box;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  padding: 32px;
+}
+.overlay_page {
+  box-sizing: border-box;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+  background-color: white;
+  padding: 16px;
+  height: 75%;
+}
+
 </style>

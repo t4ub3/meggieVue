@@ -1,21 +1,24 @@
 <template>
-    <div class="box">
-        Zuletzt bezahlt bei {{lastPaidMileage}} km.
-        <br>
-        <br>
-        Ich habe für <input id="input-refuel" type="number" v-model="refuel"/> € getankt.
-        <br>
-        <br>
-        <button class="button" @click="refuelHandler">Verrechnen</button>
-        <br>
-        <br>
-        <br>
-        aktuelle Kosten: {{costs}} €
-        <br>
-        <br>
-        <button class="button" @click="payedHandler">Ich habe bezahlt</button>
+    <div class="overlay_background">
+        <div class="overlay_page">
+            Zuletzt bezahlt bei {{lastPaidMileage}} km.
+            <br>
+            <br>
+            Ich habe für <input id="input-refuel" type="number" v-model="refuel"/> € getankt.
+            <br>
+            <br>
+            <button class="button" @click="refuelHandler">Verrechnen</button>
+            <br>
+            <br>
+            <br>
+            aktuelle Kosten: {{costs}} €
+            <br>
+            <br>
+            <button class="button" @click="payedHandler">Ich habe bezahlt</button>
+        </div>
     </div>
-    
+
+     
 </template>
 
 <script>

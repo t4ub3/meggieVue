@@ -1,7 +1,7 @@
 <template>
     <div class="fixed">
-        <menu-item iconName="plus">123</menu-item>
-        <menu-item iconName="euro-sign">456</menu-item>
+        <menu-item iconName="plus" @click.native="triggerPageSelect($event, 'MileagePage')"></menu-item>
+        <menu-item iconName="dollar-sign" @click.native="triggerPageSelect($event, 'BillingPage')"></menu-item>
     </div>
 </template>
 
@@ -10,6 +10,7 @@ import MenuItem from "./MenuItem.vue"
 import {menuMixin} from "../mixins/MenuMixin.js"
 
 export default {
+    mixins: [menuMixin],
     name: "FixedOverlay",
     components: {
         MenuItem
@@ -20,7 +21,7 @@ export default {
 <style>
     .fixed {
         position: fixed;
-        right: 20px;
-        bottom: 20px;
+        right: 24px;
+        bottom: 24px;
     }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class="box">
         <table class="table">
-            <tr class="row" v-for="(drivingRecord,index) in drivingHistory" :key="index">
+            <tr class="row" v-for="drivingRecord in drivingHistoryReverse" :key="drivingRecord.mileage">
                 <td class="column leftColumn">{{drivingRecord.mileage}} km</td>
                 <td class="column">-</td>
                 <td class="column rightColumn">{{drivingRecord.driver}}</td>
@@ -11,19 +11,18 @@
 </template>
 
 <script>
-import {readDriveHistory} from '../services/dbAccess';
 
 export default {
     name: "HistoryPage",
 
-    data() {
-        return {
-            drivingHistory: []
-        }
+    props: {
+        drivingHistory: Array,
     },
 
-    async created() {
-        this.drivingHistory = await readDriveHistory();
+    computed: {
+        drivingHistoryReverse() {
+            return [...this.drivingHistory].reverse();
+        }
     }
 }
 </script>
@@ -37,12 +36,14 @@ export default {
         border-bottom: 1px solid darkgray;
     }
     .column {
-        padding: 5px;
+        padding: 8px;
     }
     .leftColumn {
+        padding-left: 16px;
         text-align: right;
     }
     .rightColumn {
+        padding-right: 16px;
         text-align: left;
     }
 </style>
