@@ -1,28 +1,31 @@
 <template>
     <div class="overlay_background">
-        <div class="overlay_page" @click.stop>
-            Wer ist zuletzt gefahren?
-            <br><br>
-            <input id="radio-stoffel" name="radio-driven-last" type="radio" value="Stoffel" v-model="driver"/>
-            <label for="radio-stoffel">Stoffel</label>
-            <input id="radio-neumann" name="radio-driven-last" type="radio" value="Neumann" v-model="driver"/>
-            <label for="radio-neumann">Neumann</label>
-            <br><br>
-            <label for="input-mileage">aktueller Kilometerstand:</label>
-            <br>
-            <input id="input-mileage" type="number" v-model="mileage"/>
-            <br><br>
-            <button class="button" @click="submitRecord">{{submitButtonText}}</button>
+        <div class="overlay" @click.stop>
+            <overlay-header :text="'Neuer km-Stand'"></overlay-header>
+            <div class="overlay_body">
+                <div class="text">Wer ist zuletzt gefahren?</div>
+                <input class="text" id="radio-stoffel" name="radio-driven-last" type="radio" value="Stoffel" v-model="driver"/>
+                <label class="text" for="radio-stoffel">Stoffel</label>
+                <br>
+                <input class="text" id="radio-neumann" name="radio-driven-last" type="radio" value="Neumann" v-model="driver"/>
+                <label class="text" for="radio-neumann">Neumann</label>
+                <br><br>
+                <label class="text" for="input-mileage">aktueller Kilometerstand:</label>
+                <input class="text" id="input-mileage" type="number" v-model="mileage"/>
+                <br><br>
+                <button class="button" @click="submitRecord">{{submitButtonText}}</button>
+            </div>            
         </div>
     </div>    
 </template>
 
 <script>
-
     import {addMileageRecord, getLastMileage} from '../services/dbAccess.js'
+    import OverlayHeader from './OverlayHeader'
 
     export default {
         name: "MileagePage",
+        components: {OverlayHeader},
 
         data() {
             return {
@@ -52,11 +55,3 @@
         }
     }
 </script>
-
-<style scoped>
-    .overlay_page {
-        box-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
-        background-color: white;
-        padding: 16px;
-    }
-</style>

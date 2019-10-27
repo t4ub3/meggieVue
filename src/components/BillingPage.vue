@@ -1,20 +1,22 @@
 <template>
     <div class="overlay_background">
-        <div class="overlay_page">
-            Zuletzt bezahlt bei {{lastPaidMileage}} km.
-            <br>
-            <br>
-            Ich habe für <input id="input-refuel" type="number" v-model="refuel"/> € getankt.
-            <br>
-            <br>
-            <button class="button" @click="refuelHandler">Verrechnen</button>
-            <br>
-            <br>
-            <br>
-            aktuelle Kosten: {{costs}} €
-            <br>
-            <br>
-            <button class="button" @click="payedHandler">Ich habe bezahlt</button>
+        <div class="overlay" @click.stop>
+            <overlay-header :text="'Abrechnung'"></overlay-header>
+            <div class="overlay_body">
+                <div class="text">Zuletzt bezahlt bei {{lastPaidMileage}} km.</div>
+                <div class="text">
+                    Ich habe für
+                    <br>
+                    <input id="input-refuel" type="number" step="0.01" v-model="refuel"/> €
+                    <br>
+                    getankt.
+                </div>
+                <button class="button" @click="refuelHandler">Verrechnen</button>
+                <br>
+                <br>
+                <div class="text">aktuelle Kosten: {{costs}} €</div>
+                <button class="button" @click="payedHandler">{{submitButtonText}}</button>
+            </div>
         </div>
     </div>
 
@@ -23,16 +25,20 @@
 
 <script>
 import {getLastPaidMileage, setLastPaidMileage, readDriveHistory, addRefuel, getRefuelData, clearRefuelData} from '../services/dbAccess.js';
+import OverlayHeader from './OverlayHeader'
 
 export default {
     name: "BillingPage",
+
+    components: {OverlayHeader},
 
     data() {
         return {
             costs: 0,
             lastPaidMileage: 0,
             driveHistory: [],
-            refuel: 0
+            refuel: 0,
+            submitButtonText: "Ich habe bezahlt",
         }
     },
 
@@ -54,7 +60,7 @@ export default {
             let summedRefuelValue = (await getRefuelData()).reduce(function(currentRefuel, currentData) {
                 return currentRefuel + currentData;
             }, 0);
-            return parseFloat(Math.round(100 * (billedMileage * 0.15 - summedRefuelValue)) / 100).toFixed(2);
+            return parseFloat(Math.round(100 * (billedMileage * 0.25 - summedRefuelValue)) / 100).toFixed(2);
         },
 
         async refuelHandler() {
@@ -63,9 +69,11 @@ export default {
         },
 
         async payedHandler() {
+            this.submitButtonText="Speichere ...";
             await clearRefuelData();
             await this.setMileageAsPaid();
             this.costs = await this.calcCosts();
+            this.$emit("close");
         }
     },
 
@@ -76,7 +84,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-    
-</style>

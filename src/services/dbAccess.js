@@ -58,7 +58,7 @@ export async function getLastMileage() {
 
 export async function addRefuel(newRefuel) {
     let refuelData = await getRefuelData();
-    refuelData.push(parseInt(newRefuel));
+    refuelData.push(parseFloat(newRefuel));
     await axios.post(ROOT_URL + 'update-' + DB_REFUEL_DATA, {
         "refuelData": JSON.stringify(refuelData)
       })
